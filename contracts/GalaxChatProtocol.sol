@@ -22,7 +22,11 @@ contract GalaxChatProtocol {
     function send(string memory _data, address _to) external {
         require(
             dhKey[msg.sender] != 0,
-            "GalaxChatProtocol : User must be registered"
+            "GalaxChatProtocol : Sender must be registered"
+        );
+                require(
+            dhKey[_to] != 0,
+            "GalaxChatProtocol : Recipient must be registered"
         );
         emit Send(msg.sender, _to, _data);
     }
