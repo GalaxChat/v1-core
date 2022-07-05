@@ -4,7 +4,7 @@ contract GalaxChatProtocol {
     
     event Register(address indexed owner, uint256 dhKey);
 
-    event Chat(address indexed from, address indexed to, string data);
+    event Send(address indexed from, address indexed to, string data);
 
     uint256 public g = 47826432424213;
 
@@ -19,11 +19,11 @@ contract GalaxChatProtocol {
         emit Register(msg.sender, _dhKey);
     }
 
-    function chat(string memory _data, address _to) external {
+    function send(string memory _data, address _to) external {
         require(
             dhKey[msg.sender] != 0,
             "GalaxChatProtocol : User must be registered"
         );
-        emit Chat(msg.sender, _to, _data);
+        emit Send(msg.sender, _to, _data);
     }
 }
