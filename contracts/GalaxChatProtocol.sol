@@ -1,7 +1,6 @@
 pragma solidity ^0.8.0;
 
 contract GalaxChatProtocol {
-    
     event Register(address indexed owner, uint256 dhKey);
 
     event Send(address indexed from, address indexed to, string data);
@@ -24,7 +23,7 @@ contract GalaxChatProtocol {
             dhKey[msg.sender] != 0,
             "GalaxChatProtocol : Sender must be registered"
         );
-                require(
+        require(
             dhKey[_to] != 0,
             "GalaxChatProtocol : Recipient must be registered"
         );
