@@ -1,4 +1,4 @@
-pragma solidity >=0.8.0;
+pragma solidity ^0.8.0;
 
 contract GalaxchatPeerToPeer {
     event Register(address indexed owner, uint256 dhKey);
