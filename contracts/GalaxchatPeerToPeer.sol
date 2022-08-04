@@ -1,6 +1,6 @@
-pragma solidity =0.8.15;
+pragma solidity >=0.8.0;
 
-contract GalaxChatProtocol {
+contract GalaxchatPeerToPeer {
     event Register(address indexed owner, uint256 dhKey);
 
     event Send(address indexed from, address indexed to, string data);
@@ -28,24 +28,5 @@ contract GalaxChatProtocol {
             "GalaxChatProtocol : Recipient must be registered"
         );
         emit Send(msg.sender, _to, _data);
-    }
-}
-
-contract GalaxChatGroup {
-    uint256 public id;
-
-    event Send(
-        address indexed _token,
-        address indexed _owner,
-        string _content,
-        uint256 indexed _id
-    );
-
-    function send(address _address, string memory _content) public {
-        _send(_address, _content);
-    }
-
-    function _send(address _address, string memory _content) internal {
-        emit Send(_address, msg.sender, _content, id++);
     }
 }
