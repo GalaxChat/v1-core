@@ -46,6 +46,6 @@ contract GalaxChatGroup {
     }
 
     function _send(address _address, string memory _content) internal {
-        emit Srite(_address, msg.sender, _content, id++);
+        emit Send(_address, msg.sender, _content, id++);
     }
 }
