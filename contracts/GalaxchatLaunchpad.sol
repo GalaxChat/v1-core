@@ -56,6 +56,8 @@ contract GalaxchatLaunchpad is Ownable, ReentrancyGuard {
 
     uint256 public executorTokenShare = 2;
 
+    uint256 public tokenSupply = 10**28;
+
     function setRouter(ISwapV2 _router) external onlyOwner {
         router = _router;
     }
@@ -97,12 +99,11 @@ contract GalaxchatLaunchpad is Ownable, ReentrancyGuard {
         string memory name = string(
             abi.encodePacked("Galaxchat Chatroom Token (", _chatroom, ")")
         );
-        uint256 totalSupply = 10**10 * 10**18;
 
         GalaxchatChatroomToken token = new GalaxchatChatroomToken(
             name,
             name,
-            totalSupply
+            tokenSupply
         );
         IWETH weth = IWETH(router.WETH9());
         address pair = IUniswapV2Factory(router.factoryV2()).createPair(
