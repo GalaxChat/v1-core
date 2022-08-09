@@ -114,9 +114,9 @@ contract GalaxchatLaunchpad is Ownable, ReentrancyGuard {
         uint256 fee = (chatroomStatus[_chatroom].totalFund * platformETHShare) /
             100;
 
-        token.transfer(pair, (totalSupply * lpTokenShare) / 100);
-        token.transfer(msg.sender, (totalSupply * executorTokenShare) / 100);
-        token.transfer(owner(), (totalSupply * platformTokenShare) / 100);
+        token.transfer(pair, (tokenSupply * lpTokenShare) / 100);
+        token.transfer(msg.sender, (tokenSupply * executorTokenShare) / 100);
+        token.transfer(owner(), (tokenSupply * platformTokenShare) / 100);
 
         payable(owner()).transfer(fee);
         uint256 pairAmount = chatroomStatus[_chatroom].totalFund - fee;
