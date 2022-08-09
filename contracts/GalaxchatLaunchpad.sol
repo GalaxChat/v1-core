@@ -1,8 +1,6 @@
 pragma solidity ^0.8.0;
 
-import "./interfaces/IGalaxchatMessageEvent.sol";
-
-contract GalaxchatMessageEvent is IGalaxchatMessageEvent {
+contract GalaxchatMessageEvent {
     uint256 public id;
 
     event Send(

@@ -1,6 +1,8 @@
 pragma solidity ^0.8.0;
 
-contract GalaxchatPeerToPeer {
+import "./interfaces/IGalaxchatPeerToPeer.sol";
+
+contract GalaxchatPeerToPeer is IGalaxchatPeerToPeer {
     event Register(address indexed owner, uint256 dhKey);
 
     event Send(address indexed from, address indexed to, string data);
