@@ -9,14 +9,15 @@ contract GalaxChatChatroom is IGalaxChatChatroom {
         address indexed _chatroom,
         address indexed _sender,
         string _content,
-        uint256 indexed _id
+        uint256 indexed _id,
+        uint256 timestamp
     );
 
     function send(
         address _chatroom,
         address _sender,
-        string memory _content
+        string calldata _content
     ) public {
-        emit Send(_chatroom, _sender, _content, id++);
+        emit Send(_chatroom, _sender, _content, id++, block.timestamp);
     }
 }
