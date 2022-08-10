@@ -1,7 +1,7 @@
 pragma solidity ^0.8.0;
 
-import "./GalaxchatChatroomToken.sol";
-import "./interfaces/IGalaxchatLaunchpad.sol";
+import "./GalaxChatChatroomToken.sol";
+import "./interfaces/IGalaxChatLaunchpad.sol";
 import "./interfaces/ISwapV2.sol";
 import "./interfaces/IWETH.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 
-contract GalaxchatLaunchpad is Ownable, ReentrancyGuard {
+contract GalaxChatLaunchpad is Ownable, ReentrancyGuard {
     event Invest(
         address indexed chatroom,
         address indexed owner,
@@ -30,7 +30,7 @@ contract GalaxchatLaunchpad is Ownable, ReentrancyGuard {
     }
 
     struct Chatroom {
-        GalaxchatChatroomToken token;
+        GalaxChatChatroomToken token;
         address pair;
         uint256 status;
         uint256 totalFund;
@@ -77,7 +77,7 @@ contract GalaxchatLaunchpad is Ownable, ReentrancyGuard {
     function invest(address _chatroom) external payable nonReentrant {
         require(
             chatroomStatus[_chatroom].status == 0,
-            "Galaxchat : You can't invest , Token has been created"
+            "GalaxChat : You can't invest , Token has been created"
         );
         chatroomInvests[_chatroom].push(
             InvestOrder({owner: msg.sender, amount: msg.value})
@@ -89,18 +89,18 @@ contract GalaxchatLaunchpad is Ownable, ReentrancyGuard {
     function createToken(address _chatroom) external nonReentrant {
         require(
             chatroomStatus[_chatroom].status == 0,
-            "Galaxchat : You can't create token , Token has been created"
+            "GalaxChat : You can't create token , Token has been created"
         );
         require(
             chatroomStatus[_chatroom].totalFund > minETHAmount,
-            "Galaxcaht : Chatroom totalFund must greater than minETHAmout"
+            "GalaxChat : Chatroom totalFund must greater than minETHAmout"
         );
 
         string memory name = string(
-            abi.encodePacked("Galaxchat Chatroom Token (", _chatroom, ")")
+            abi.encodePacked("GalaxChat Chatroom Token (", _chatroom, ")")
         );
 
-        GalaxchatChatroomToken token = new GalaxchatChatroomToken(
+        GalaxChatChatroomToken token = new GalaxChatChatroomToken(
             name,
             name,
             tokenSupply
@@ -153,11 +153,11 @@ contract GalaxchatLaunchpad is Ownable, ReentrancyGuard {
     function claim(address _chatroom) external nonReentrant {
         require(
             chatroomStatus[_chatroom].status == 1,
-            "Galaxchat : LP must be created"
+            "GalaxChat : LP must be created"
         );
         require(
             !claimed[_chatroom][msg.sender],
-            "Galaxchat : The account has been claimed"
+            "GalaxChat : The account has been claimed"
         );
         uint256 claimAmount = getClaimAmount(_chatroom);
         chatroomStatus[_chatroom].token.transfer(msg.sender, claimAmount);

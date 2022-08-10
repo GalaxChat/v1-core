@@ -1,8 +1,8 @@
 pragma solidity ^0.8.0;
 
-import "./interfaces/IGalaxchatChatroom.sol";
+import "./interfaces/IGalaxChatChatroom.sol";
 
-contract GalaxchatChatroom is IGalaxchatChatroom {
+contract GalaxChatChatroom is IGalaxChatChatroom {
     uint256 public id;
 
     event Send(

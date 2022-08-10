@@ -1,8 +1,8 @@
 pragma solidity ^0.8.0;
 
-import "./interfaces/IGalaxchatAnonymousChat.sol";
+import "./interfaces/IGalaxChatAnonymousChat.sol";
 
-contract GalaxchatAnonymousChat is IGalaxchatAnonymousChat {
+contract GalaxChatAnonymousChat is IGalaxChatAnonymousChat {
     event Register(address indexed owner, uint256 dhKey);
 
     event Send(address indexed from, address indexed to, string data);
