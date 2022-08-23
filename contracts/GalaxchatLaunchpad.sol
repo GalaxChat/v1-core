@@ -92,7 +92,7 @@ contract GalaxChatLaunchpad is Ownable, ReentrancyGuard {
             "GalaxChat : You can't create token , Token has been created"
         );
         require(
-            chatroomStatus[_chatroom].totalFund > minETHAmount,
+            chatroomStatus[_chatroom].totalFund >= minETHAmount,
             "GalaxChat : Chatroom totalFund must greater than minETHAmout"
         );
 
@@ -129,10 +129,14 @@ contract GalaxChatLaunchpad is Ownable, ReentrancyGuard {
         emit CreateLP(_chatroom, msg.sender);
     }
 
-    function getClaimAmount(address _chatroom) public view returns (uint256) {
+    function getClaimAmount(address _chatroom, address _owner)
+        public
+        view
+        returns (uint256)
+    {
         uint256 amount;
         for (uint256 i = 0; i < chatroomInvests[_chatroom].length; i++) {
-            if (chatroomInvests[_chatroom][i].owner == msg.sender) {
+            if (chatroomInvests[_chatroom][i].owner == _owner) {
                 amount += chatroomInvests[_chatroom][i].amount;
             }
         }
@@ -159,7 +163,7 @@ contract GalaxChatLaunchpad is Ownable, ReentrancyGuard {
             !claimed[_chatroom][msg.sender],
             "GalaxChat : The account has been claimed"
         );
-        uint256 claimAmount = getClaimAmount(_chatroom);
+        uint256 claimAmount = getClaimAmount(_chatroom, msg.sender);
         chatroomStatus[_chatroom].token.transfer(msg.sender, claimAmount);
         claimed[_chatroom][msg.sender] = true;
         emit Claim(_chatroom, msg.sender, claimAmount);
