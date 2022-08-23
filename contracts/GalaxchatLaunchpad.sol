@@ -140,6 +140,8 @@ contract GalaxChatLaunchpad is Ownable, ReentrancyGuard {
         view
         returns (uint256)
     {
+        if (address(chatroomStatus[_chatroom].token) == address(0)) return 0;
+        
         uint256 amount;
         for (uint256 i = 0; i < chatroomInvests[_chatroom].length; i++) {
             if (chatroomInvests[_chatroom][i].owner == _owner) {
