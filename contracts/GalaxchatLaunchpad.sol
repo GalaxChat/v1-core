@@ -5,11 +5,14 @@ import "./interfaces/IGalaxChatLaunchpad.sol";
 import "./interfaces/ISwapV2.sol";
 import "./interfaces/IWETH.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 
 contract GalaxChatLaunchpad is Ownable, ReentrancyGuard {
+    using Strings for address;
+
     event Invest(
         address indexed chatroom,
         address indexed owner,
@@ -97,12 +100,15 @@ contract GalaxChatLaunchpad is Ownable, ReentrancyGuard {
         );
 
         string memory name = string(
-            abi.encodePacked("GalaxChat Chatroom Token (", _chatroom, ")")
+            abi.encodePacked("GalaxChat Token ", _chatroom.toHexString())
+        );
+        string memory symbol = string(
+            abi.encodePacked("GCT ", _chatroom.toHexString())
         );
 
         GalaxChatChatroomToken token = new GalaxChatChatroomToken(
             name,
-            name,
+            symbol,
             tokenSupply
         );
         IWETH weth = IWETH(router.WETH9());
