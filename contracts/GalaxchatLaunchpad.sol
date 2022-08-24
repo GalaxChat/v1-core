@@ -61,6 +61,10 @@ contract GalaxChatLaunchpad is Ownable, ReentrancyGuard {
 
     uint256 public tokenSupply = 10**28;
 
+    function WETH() public view returns (IWETH) {
+        return IWETH(router.WETH9());
+    }
+
     function setRouter(ISwapV2 _router) external onlyOwner {
         router = _router;
     }
@@ -111,7 +115,7 @@ contract GalaxChatLaunchpad is Ownable, ReentrancyGuard {
             symbol,
             tokenSupply
         );
-        IWETH weth = IWETH(router.WETH9());
+        IWETH weth = WETH();
         address pair = IUniswapV2Factory(router.factoryV2()).createPair(
             address(weth),
             address(token)
@@ -141,7 +145,8 @@ contract GalaxChatLaunchpad is Ownable, ReentrancyGuard {
         returns (uint256)
     {
         if (address(chatroomStatus[_chatroom].token) == address(0)) return 0;
-        
+        if (claimed[_chatroom][msg.sender]) return 0;
+
         uint256 amount;
         for (uint256 i = 0; i < chatroomInvests[_chatroom].length; i++) {
             if (chatroomInvests[_chatroom][i].owner == _owner) {
