@@ -20,6 +20,7 @@ contract GalaxChatAnonymousChat is IGalaxChatAnonymousChat {
         emit Register(msg.sender, _dhKey);
     }
 
+    //send msg
     function send(string memory _data, address _to) external {
         require(
             dhKey[msg.sender] != 0,
